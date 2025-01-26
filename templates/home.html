@@ -1,120 +1,147 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Sami Cariers.com</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Header</title>
     <style>
-        h1 {
-            font-size: 40px;
-            font-family: Roboto;
-            font-weight: bold;
-            color: black;
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Header styling */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: white;
+            border-bottom: 2px solid #f2f2f2;
+            position: fixed;
+            width: 100%;
+            top: -80px; /* Start hidden */
+            transition: top 0.3s;
+            z-index: 1000;
+        }
+
+        /* Logo styling */
+        .logo img {
+            width: 50px;
+            height: auto;
+        }
+
+        /* Name and intro text */
+        .header-center {
             text-align: center;
         }
 
-        #banner {
-            width: 35%;
-            height: 320px;
-            object-fit: cover;
-            float: right;
-
-        }
-
-        #about {
+        .header-center h1 {
             font-size: 32px;
-            font-family: Roboto;
-            color: black;
-            text-align: center;
-
+            color: #333;
         }
 
-        #about_para {
-            font-family: Roboto;
+        .header-center p {
+            font-size: 16px;
+            color: #777;
+            margin-top: 5px;
+        }
 
+        /* Navigation links */
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
 
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
         }
-        #skill {
-            font-size: 32px;
-            font-family: Roboto;
-            color: black;
-            text-align: center;
+
+        /* Active section button styles */
+        .categories {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 150px; /* Space below fixed header */
+            font-size: 16px;
         }
-        #skills {
-            font-size: 18px;
-            font-family: Roboto;
-            color: black;
-            
+
+        .categories a {
+            text-decoration: none;
+            color: #333;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
         }
-        #project {
-            font-size: 32px;
-            font-family: Roboto;
-            color: black;
-            text-align: center;
+
+        .categories a:hover,
+        .categories a.active {
+            background-color: #ffd700;
+            color: white;
         }
-        #projects {
-            font-size: 18px;
-            font-family: Roboto;
-            color: black;
+
+        /* Extra body height to enable scrolling */
+        body {
+            height: 2000px;
+            padding-top: 80px; /* Adjust for fixed header space */
         }
     </style>
 </head>
 
 <body>
-    <h1>Welcome To Sami Ullah Data Science Home</h1>
+    <!-- Header Section -->
+    <header id="header">
+        <!-- Logo -->
+        <div class="logo">
+            <img src="logo.png" alt="Logo"> <!-- Replace with your logo path -->
+        </div>
 
-    <img id="banner" src="http://127.0.0.1:5000/static/banner.avif" alt="">
-    <h2 id="about">ABOUT</h2>
-    <div id="about_para">
+        <!-- Center Text -->
+        <div class="header-center">
+            <h1>Your Name</h1>
+            <p>Hello! Glad to see you here. This is a collection of my personal projects made during free time.</p>
+        </div>
 
-        <p>Welcome! I’m Samiullah, a passionate data science enthusiast with a BS in Information Technology from
-            Government
-            College University Faisalabad (GCUF). I specialize in transforming raw data into actionable insights and
-            creating machine learning models that solve real-world problems. My journey into data science began with
-            an
-            interest in data-driven decision-making, which has only deepened as I've worked on various projects.
+        <!-- Navigation Links -->
+        <nav class="nav-links">
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
 
-            I have hands-on experience with projects across different domains, including flight fare prediction,
-            credit card
-            fraud detection, and heart attack risk prediction. Each project has sharpened my skills in data
-            preprocessing,
-            feature engineering, and model evaluation, and I am always exploring new algorithms and techniques to
-            improve my
-            models.
-        </p>
-
+    <!-- Categories Section -->
+    <div class="categories">
+        <a href="#all" class="active">ALL CATEGORIES</a>
+        <a href="#data-visualization">DATA VISUALIZATION</a>
+        <a href="#creative-coding">CREATIVE CODING</a>
+        <a href="#data-science">DATA SCIENCE</a>
     </div>
-    <hr>
-    <br>
-    <h2 id="skill">SKILLS</h2>
-    <ul id="skills">
-        <li>
-            <p>Python</p>
-        </li>
-        <li>
-            <p>Machine Learnning</p>
-        </li>
-        <li>
-            <p>Deep Learning</p>
-        </li>
-    </ul>
-    <hr>
-    <h2 id="project">projects</h2>
-    <ul id="projects">
-        <li>
-            <p>Student Performance Indicato</p>
-        </li>
-        <li>
-            <p>Flight Fare Prediction</p>
-        </li>
-        <li>
-            <p>Movie Recommendation</p>
-        </li>
-    </ul>
-    <hr>
-    <br><br>
-    <button>Contact me</button>
+
+    <!-- JavaScript to handle scroll behavior -->
+    <script>
+        const header = document.getElementById('header');
+        let lastScrollTop = 0;
+
+        window.addEventListener('scroll', () => {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollTop === 0) {
+                // At the top of the page, keep the header hidden
+                header.style.top = "-80px";
+            } else if (scrollTop > lastScrollTop || scrollTop < lastScrollTop) {
+                // Scrolling down or up, show the header
+                header.style.top = "0";
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+    </script>
 </body>
 
 </html>
