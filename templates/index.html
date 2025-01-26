@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sami Careers</title>
-    <link rel="stylesheet" href="D:\flask\website1\static\style\style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
 </head>
 
 <body>
@@ -13,7 +14,7 @@
     <header id="header">
         <!-- Logo -->
         <div class="logo">
-            <img src="D:\flask\website1\static\S.png" alt="Logo"> <!-- Replace with your logo path -->
+            <img src="{{ url_for('static', filename='images/S.png') }}" alt="Logo"> <!--  logo path -->
         </div>
 
         <!-- Center Text -->
@@ -48,7 +49,8 @@
     <section id="about" class="about">
 
         <h2>~ About Me ~</h2>
-        <img src="C:\Users\FutureTech\OneDrive\Pictures\dddddddd.png" alt="Jane's Profile" class="profile-photo">
+        <img src="{{ url_for('static', filename='images/dddddddd.png') }}" alt="Jane's Profile" class="profile-photo">
+
         <p>
             From an early interest in technology to earning a Bachelor’s degree in Information Technology from
             Government College University Faisalabad, my journey has been one of curiosity and growth. While I initially
