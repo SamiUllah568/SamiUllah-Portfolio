@@ -35,6 +35,8 @@ def send_email(subject, body, recipient_email):
         print("Email sent successfully!")
     except Exception as e:
         print(f"Error: {str(e)}")
+    finally:
+        server.quit()
 
 # Route for the homepage
 @app.route("/")
@@ -59,5 +61,4 @@ def send_message():
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)
-  
   
