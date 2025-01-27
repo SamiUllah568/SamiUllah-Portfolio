@@ -1,0 +1,26 @@
+# Site settings
+title: "Sami Ullah Portfolio"
+description: "Data Science and Machine Learning Portfolio"
+baseurl: "/SamiUllah-Portfolio"  # This is the URL base (adjust if necessary)
+url: "https://SamiUllah568.github.io"  # Replace with your GitHub username and repo
+theme: jekyll-theme-primer  # Ensure you're using the correct theme
+
+# Directory settings
+source: "."  # Root directory (adjust if using a `docs` folder)
+destination: "./_site"  # Default build output location
+
+# Additional settings for SCSS, assets, and more
+sass:
+  style: compressed  # Can change to expanded if needed for development
+
+# Other optional settings
+markdown: kramdown
+
+# Project details
+projects:
+  - name: "Project 1"
+    description: "Description of Project 1"
+    url: "https://link-to-project-1.com"
+  - name: "Project 2"
+    description: "Description of Project 2"
+    url: "https://link-to-project-2.com"
