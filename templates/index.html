@@ -108,7 +108,7 @@
                 Created a machine learning model to predict heart attack risks based on patient health data, including
                 cholesterol levels, blood pressure, and ECG results. Key achievements include:
             </p>
-            
+
             <a class="project-link" href="https://github.com/SamiUllah568/Heart-Attack-Risk-Prediction"
                 target="_blank">View on GitHub</a>
         </div>
@@ -120,7 +120,7 @@
                 Designed a fraud detection system to identify suspicious credit card transactions using advanced machine
                 learning techniques. Highlights of the project include:
             </p>
-            
+
             <a class="project-link" href="#" target="_blank">View on GitHub</a>
         </div>
 
@@ -144,11 +144,11 @@
         <h3>My Resume</h3>
         <p>Click below to view or download my resume.</p>
         <div class="resume-buttons">
-             <!-- View resume in a new tab -->
-        <a href="static/Sami%20Ullah%20Resume.pdf" class="resume-view" target="_blank">View Resume</a>
-        
-        <!-- Download resume directly -->
-        <a href="static/Sami%20Ullah%20Resume.pdf" class="resume-download" download>Download Resume</a>
+            <!-- View resume in a new tab -->
+            <a href="static/Sami%20Ullah%20Resume.pdf" class="resume-view" target="_blank">View Resume</a>
+
+            <!-- Download resume directly -->
+            <a href="static/Sami%20Ullah%20Resume.pdf" class="resume-download" download>Download Resume</a>
         </div>
     </section>
 
@@ -160,10 +160,17 @@
         <p>If you have any questions or would like to collaborate, feel free to send me a message!</p>
         <form action="/send_message" method="POST" class="contact-form" onsubmit="return validateForm()">
             <input type="text" id="name" name="name" placeholder="Your Name" class="form-input" required>
+            <span id="name-error" class="error-message"></span>
+
             <input type="email" id="email" name="email" placeholder="Your Email" class="form-input" required>
+            <span id="email-error" class="error-message"></span>
+
             <textarea id="message" name="message" placeholder="Your Message" class="form-textarea" required></textarea>
+            <span id="message-error" class="error-message"></span>
+
             <button type="submit" class="form-button">Send Message</button>
         </form>
+        <div id="success-message" class="success-message"></div>
     </section>
 
     <script>
@@ -173,26 +180,41 @@
             let email = document.getElementById("email").value;
             let message = document.getElementById("message").value;
             let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-            let errorMessage = '';
 
+            // Clear previous error messages
+            document.getElementById("name-error").innerText = "";
+            document.getElementById("email-error").innerText = "";
+            document.getElementById("message-error").innerText = "";
+            document.getElementById("success-message").innerText = "";
+
+            let valid = true;
+
+            // Name validation
             if (name.trim() === "") {
-                errorMessage = "Please enter your name.";
-            } else if (!emailPattern.test(email)) {
-                errorMessage = "Please enter a valid email address.";
-            } else if (message.trim() === "") {
-                errorMessage = "Please enter your message.";
+                document.getElementById("name-error").innerText = "Please enter your name.";
+                valid = false;
             }
 
-            if (errorMessage) {
-                alert(errorMessage);
-                return false;
+            // Email validation
+            if (!emailPattern.test(email)) {
+                document.getElementById("email-error").innerText = "Please enter a valid email address.";
+                valid = false;
             }
-            alert("Message sent successfully!");
-            return true;
+
+            // Message validation
+            if (message.trim() === "") {
+                document.getElementById("message-error").innerText = "Please enter your message.";
+                valid = false;
+            }
+
+            // If form is valid, show success message
+            if (valid) {
+                document.getElementById("success-message").innerText = "Message sent successfully!";
+            }
+
+            return valid;  // If false, form won't submit
         }
     </script>
-
-
 
     <!-- Footer Section -->
     <footer>
