@@ -2,13 +2,18 @@ from flask import Flask, render_template, request
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import os
+from dotenv import load_dotenv  # Import dotenv package
 
 app = Flask(__name__)
 
+# Load environment variables from .env file
+load_dotenv()
+
 # Function to send email
 def send_email(subject, body, recipient_email):
-    sender_email = "sk2579784@gmail.com"  
-    sender_password = "SamiDataScientistKhan"  
+    sender_email = os.getenv("EMAIL_USER")  # Get email from environment variable
+    sender_password = os.getenv("EMAIL_PASSWORD")  # Get password from environment variable
 
     # Create the email message
     msg = MIMEMultipart()
@@ -48,7 +53,7 @@ def send_message():
     body = f"From: {name}\nEmail: {email}\nMessage:\n{message}"
 
     # Send the email to your email address
-    send_email(subject, body, "your_email@gmail.com")  # Replace with your email
+    send_email(subject, body, "sk2579784@gmail.com") 
 
     return "Message sent successfully! Thank you for contacting me."
 
