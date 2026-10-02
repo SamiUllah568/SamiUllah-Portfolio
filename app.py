@@ -3,62 +3,91 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import os
-from dotenv import load_dotenv  # Import dotenv package
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 
-# Load environment variables from .env file
+# Load environment variables
 load_dotenv()
 
-# Function to send email
+
 def send_email(subject, body, recipient_email):
-    sender_email = os.getenv("EMAIL_USER")  # Get email from environment variable
-    sender_password = os.getenv("EMAIL_PASSWORD")  # Get password from environment variable
+    sender_email = os.getenv("EMAIL_USER")
+    sender_password = os.getenv("EMAIL_PASSWORD")
 
-    # Create the email message
+    if not sender_email or not sender_password:
+        print("ERROR: EMAIL_USER or EMAIL_PASSWORD is not configured.")
+        return False
+
     msg = MIMEMultipart()
-    msg['From'] = sender_email
-    msg['To'] = recipient_email
-    msg['Subject'] = subject
+    msg["From"] = sender_email
+    msg["To"] = recipient_email
+    msg["Subject"] = subject
 
-    # Add the message body
-    msg.attach(MIMEText(body, 'plain'))
+    msg.attach(MIMEText(body, "plain"))
 
-    # Connect to the Gmail server and send the email
+    server = None
+
     try:
-        server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.starttls()  # Secure the connection
+        server = smtplib.SMTP("smtp.gmail.com", 587, timeout=30)
+        server.starttls()
         server.login(sender_email, sender_password)
-        text = msg.as_string()
-        server.sendmail(sender_email, recipient_email, text)
-        server.quit()
-        print("Email sent successfully!")
-    except Exception as e:
-        print(f"Error: {str(e)}")
-    finally:
-        server.quit()
 
-# Route for the homepage
+        server.sendmail(
+            sender_email,
+            recipient_email,
+            msg.as_string()
+        )
+
+        print("Email sent successfully!")
+        return True
+
+    except Exception as e:
+        print(f"Email error: {e}")
+        return False
+
+    finally:
+        if server is not None:
+            try:
+                server.quit()
+            except Exception:
+                pass
+
+
+# Homepage
 @app.route("/")
 def hello_world():
-    return render_template('index.html')
+    return render_template("index.html")
 
-# Route to handle the form submission
-@app.route('/send_message', methods=['POST'])
+
+# Contact form
+@app.route("/send_message", methods=["POST"])
 def send_message():
-    name = request.form['name']
-    email = request.form['email']
-    message = request.form['message']
 
-    # Compose the email content
+    name = request.form["name"]
+    email = request.form["email"]
+    message = request.form["message"]
+
     subject = f"New Message from {name}"
-    body = f"From: {name}\nEmail: {email}\nMessage:\n{message}"
 
-    # Send the email to your email address
-    send_email(subject, body, "sk2579784@gmail.com") 
+    body = f"""From: {name}
+Email: {email}
 
-    return "Message sent successfully! Thank you for contacting me."
+Message:
+{message}
+"""
+
+    success = send_email(
+        subject,
+        body,
+        "sk2579784@gmail.com"
+    )
+
+    if success:
+        return "Message sent successfully! Thank you for contacting me."
+
+    return "Sorry, your message could not be sent. Please try again later.", 500
+
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=True)
-  
+    app.run(host="0.0.0.0", debug=True)
