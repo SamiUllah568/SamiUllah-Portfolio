@@ -14,12 +14,10 @@
     <!-- Header Section -->
     <header id="header">
 
-        <!-- Logo -->
         <div class="logo">
             <img src="{{ url_for('static', filename='images/S.png') }}" alt="Sami Ullah Logo">
         </div>
 
-        <!-- Navigation Links -->
         <nav class="nav-links">
             <a href="#about">About</a>
             <a href="#projects">Projects</a>
@@ -135,7 +133,7 @@
             </p>
 
             <a class="project-link"
-                href="YOUR_RETAIL_POWERBI_GITHUB_LINK"
+                href="https://github.com/SamiUllah568/Retail-Sales-Customer-Analytics-Power-BI-"
                 target="_blank">
                 View on GitHub
             </a>
@@ -183,7 +181,7 @@
             </p>
 
             <a class="project-link"
-                href="YOUR_BOOKSTORE_GITHUB_LINK"
+                href="https://github.com/SamiUllah568/Online-Book-Store-Sales-Analysis-SQL-"
                 target="_blank">
                 View on GitHub
             </a>
@@ -228,14 +226,12 @@
 
         <div class="resume-buttons">
 
-            <!-- View Resume -->
             <a href="{{ url_for('static', filename='Sami Ullah Resume.pdf') }}"
                 class="resume-view"
                 target="_blank">
                 View Resume
             </a>
 
-            <!-- Download Resume -->
             <a href="{{ url_for('static', filename='Sami Ullah Resume.pdf') }}"
                 class="resume-download"
                 download>
@@ -274,7 +270,6 @@
             <span id="name-error"
                 class="error-message"></span>
 
-
             <input type="email"
                 id="email"
                 name="email"
@@ -285,7 +280,6 @@
             <span id="email-error"
                 class="error-message"></span>
 
-
             <textarea id="message"
                 name="message"
                 placeholder="Your Message"
@@ -294,7 +288,6 @@
 
             <span id="message-error"
                 class="error-message"></span>
-
 
             <button type="submit"
                 class="form-button">
@@ -321,18 +314,13 @@
             let emailPattern =
                 /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 
-
-            // Clear previous error messages
             document.getElementById("name-error").innerText = "";
             document.getElementById("email-error").innerText = "";
             document.getElementById("message-error").innerText = "";
             document.getElementById("success-message").innerText = "";
 
-
             let valid = true;
 
-
-            // Name validation
             if (name.trim() === "") {
 
                 document.getElementById("name-error").innerText =
@@ -341,8 +329,6 @@
                 valid = false;
             }
 
-
-            // Email validation
             if (!emailPattern.test(email)) {
 
                 document.getElementById("email-error").innerText =
@@ -351,8 +337,6 @@
                 valid = false;
             }
 
-
-            // Message validation
             if (message.trim() === "") {
 
                 document.getElementById("message-error").innerText =
@@ -361,14 +345,11 @@
                 valid = false;
             }
 
-
-            // Success message
             if (valid) {
 
                 document.getElementById("success-message").innerText =
                     "Message sent successfully!";
             }
-
 
             return valid;
         }
